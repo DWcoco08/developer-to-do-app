@@ -94,16 +94,31 @@ function App() {
                           className="form-control tech-input"
                           value={editValue}
                           onChange={(e) => setEditValue(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                              handleEdit(todo.id);
+                            } else if (e.key === "Escape") {
+                              setEditId(null);
+                              setEditValue("");
+                            }
+                          }}
+                          autoFocus
                         />
                         <button
                           className="btn btn-success"
                           onClick={() => handleEdit(todo.id)}
+                          title="Save (or press Enter)"
                         >
                           <FaCheck />
                         </button>
                         <button
                           className="btn btn-danger"
-                          onClick={() => setEditId(null)}
+                          onClick={() => {
+                            setEditId(null);
+                            setEditValue("");
+                          }}
+                          title="Cancel (or press Esc)"
                         >
                           <FaTimes />
                         </button>
